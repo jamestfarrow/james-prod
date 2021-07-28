@@ -106,16 +106,3 @@ resource "aws_instance" "webservers" {
         Name = var.instance_name["Name"][count.index]
     }
 }
-
-resource "aws_lb" "james-prod-web" {
-    name = "james-prod-web-elb"
-    internal = false
-    load_balancer_type = "application"
-    security_groups = [aws_security_group.webservers.id]
-    subnets = aws_subnet.public.*.id
-
-    enable_deletion_protection = true
-    tags = {
-        Environment = "production"
-    }
-}
